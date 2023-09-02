@@ -25,7 +25,6 @@ namespace Assets.Scripts
         internal static string lockVelocity = "lockVelocity";
         internal static string attackCooldown = "attackCooldown";
         internal static string closeToPlayer = "closeToPlayer";
-        internal static string isChasing = "isChasing";
         internal static string attack = "attack";
         internal static string isPlayerGrounded = "isPlayerGrounded";
     }

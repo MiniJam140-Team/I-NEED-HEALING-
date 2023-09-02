@@ -17,21 +17,21 @@ namespace Assets.Scripts
         CapsuleCollider2D capsuleCollider;
         public GameObject ledgeDetector;
         public Transform target;
-        private bool isChasing;
+        private bool isMoving;
         public float speed;
         public float distToChasePlayer = 8f;
         public int typeAttack = 0;
 
-        public bool IsChasing
+        public bool IsMoving
         {
             get
             {
-                return isChasing;
+                return isMoving;
             }
             set
             {
-                isChasing = value;
-                animator.SetBool(AnimationStrings.isChasing, value);
+                isMoving = value;
+                animator.SetBool(AnimationStrings.isMoving, value);
             }
         }
         public bool _canMove = true;
@@ -89,27 +89,31 @@ namespace Assets.Scripts
             Vector3 scale = transform.localScale;
             //IsChasing = Vector2.Distance(transform.position, target.position) < distToChasePlayer ? true : false;
 
-            if (transform.position.x > target.position.x)
+            if (!(GameObject.FindGameObjectWithTag("Barrier")))
             {
-                transform.position += Vector3.left * speed * Time.deltaTime;
-                scale.x = Mathf.Abs(scale.x) * -1;
+
+                if (transform.position.x > target.position.x)
+                {
+                    transform.position += Vector3.left * speed * Time.deltaTime;
+                    scale.x = Mathf.Abs(scale.x) * -1;
+                }
+                if (transform.position.x < target.position.x)
+                {
+                    scale.x = Mathf.Abs(scale.x) * 1;
+                    transform.position += Vector3.right * speed * Time.deltaTime;
+                }
+                if (transform.position.y > target.position.y)
+                {
+                    transform.position += Vector3.down * speed * Time.deltaTime;
+                    scale.x = Mathf.Abs(scale.x) * -1;
+                }
+                if (transform.position.y < target.position.y)
+                {
+                    scale.x = Mathf.Abs(scale.x) * 1;
+                    transform.position += Vector3.up * speed * Time.deltaTime;
+                }
+                transform.localScale = scale;
             }
-            if (transform.position.x < target.position.x)
-            {
-                scale.x = Mathf.Abs(scale.x) * 1;
-                transform.position += Vector3.right * speed * Time.deltaTime;
-            }
-            if (transform.position.y > target.position.y)
-            {
-                transform.position += Vector3.down * speed * Time.deltaTime;
-                scale.x = Mathf.Abs(scale.x) * -1;
-            }
-            if (transform.position.y < target.position.y)
-            {
-                scale.x = Mathf.Abs(scale.x) * 1;
-                transform.position += Vector3.up * speed * Time.deltaTime;
-            }
-            transform.localScale = scale;
         }
         private void FixedUpdate()
         {
