@@ -16,19 +16,19 @@ namespace Assets.Scripts
         Rigidbody2D rb;
         public GameObject ledgeDetector;
         public Transform target;
-        private bool isChasing;
+        private bool isMoving;
         public float speed;
 
-        public bool IsChasing
+        public bool IsMoving
         {
             get
             {
-                return isChasing;
+                return isMoving;
             }
             set
             {
-                isChasing = value;
-                animator.SetBool(AnimationStrings.isChasing, value);
+                isMoving = value;
+                animator.SetBool(AnimationStrings.isMoving, value);
             }
         }
         public bool _canMove = true;
@@ -75,10 +75,6 @@ namespace Assets.Scripts
         // Update is called once per frame
         void Update()
         {
-            ////if (damagable.Health <= 50)
-            //{
-            //}
-
             //HasTarget = attackZone.detectedColliders.Count > 0;
             Vector3 scale = transform.localScale;
             //IsChasing = Vector2.Distance(transform.position, target.position) < distToChasePlayer ? true : false;
@@ -109,7 +105,14 @@ namespace Assets.Scripts
         }
         private void FixedUpdate()
         {
-            target = GameObject.FindWithTag("Barrier").transform;           
-        }        
+            SetTarget();
+        }
+        void SetTarget()
+        {
+            if (GameObject.FindWithTag("Barrier").transform != null)
+            {
+                target = GameObject.FindWithTag("Barrier").transform;
+            }
+        }
     }
 }

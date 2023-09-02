@@ -17,20 +17,20 @@ namespace Assets.Scripts
         CapsuleCollider2D capsuleCollider;
         public GameObject ledgeDetector;
         public Transform target;
-        private bool isChasing;
+        private bool isMoving;
         public float speed;
         public float distToChasePlayer = 8f;
 
-        public bool IsChasing
+        public bool IsMoving
         {
             get
             {
-                return isChasing;
+                return isMoving;
             }
             set
             {
-                isChasing = value;
-                animator.SetBool(AnimationStrings.isChasing, value);
+                isMoving = value;
+                animator.SetBool(AnimationStrings.isMoving, value);
             }
         }
         public bool _canMove = true;
@@ -67,10 +67,7 @@ namespace Assets.Scripts
         }
         private void Awake()
         {
-            rb = GetComponent<Rigidbody2D>();
-            //animator = GetComponent<Animator>();
-            capsuleCollider = GetComponent<CapsuleCollider2D>();
-
+            animator = GetComponent<Animator>();
         }
         // Start is called before the first frame update
         void Start()
