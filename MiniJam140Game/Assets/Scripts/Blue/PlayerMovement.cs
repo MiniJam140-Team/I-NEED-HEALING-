@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -13,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     public float lastHorizontalVector;
     [HideInInspector]
     public float lastVerticalVector;
+    Animator animator;
 
     //References
     SpriteRenderer sr;
@@ -21,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -29,7 +33,12 @@ public class PlayerMovement : MonoBehaviour
 
         if(moveDir.x != 0 || moveDir.y != 0)
         {
+            animator.SetBool(AnimationStrings.isMoving, true);
             SpriteDirectionChecker();
+        }
+        else
+        {
+            animator.SetBool (AnimationStrings.isMoving, false);
         }
     }
 
