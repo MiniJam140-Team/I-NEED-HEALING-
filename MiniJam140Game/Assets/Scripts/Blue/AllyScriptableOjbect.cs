@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "CharacterScriptableObject", menuName = "ScriptableObjects/Character")]
+[CreateAssetMenu(fileName = "AllyScriptableObject", menuName = "ScriptableObjects/Allies")]
 
-public class CharacterScriptableObject : ScriptableObject
+public class AllyScriptableObject : ScriptableObject
 {
+    //Base stats for Alles
     [SerializeField]
     float maxHealth;
     public float MaxHealth { get => maxHealth; set => maxHealth = value; }
@@ -13,8 +14,4 @@ public class CharacterScriptableObject : ScriptableObject
     [SerializeField]
     float moveSpeed;
     public float MoveSpeed { get => moveSpeed; set => moveSpeed = value; }
-
-    [SerializeField]
-    float healAmount;
-    public float HealAmount { get => healAmount; set => healAmount = value; }
 }

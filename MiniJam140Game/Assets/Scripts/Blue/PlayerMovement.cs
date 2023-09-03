@@ -1,4 +1,3 @@
-using System.Numerics;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,30 +5,44 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     //Movement
+    public float moveSpeed;
+    Rigidbody2D rb;
+    [HideInInspector]
+    Vector2 moveDir;
     [HideInInspector]
     public float lastHorizontalVector;
     [HideInInspector]
     public float lastVerticalVector;
-    [HideInInspector]
-    public UnityEngine.Vector2 moveDir;
-    [HideInInspector]
-    public UnityEngine.Vector2 lastMovedVector;
 
     //References
-    Rigidbody2D rb;
-    public CharacterScriptableObject characterData;
+    SpriteRenderer sr;
 
-    // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        lastMovedVector = new UnityEngine.Vector2(1, 0f);  //If we don't do this and game starts, the player doesn't move and the projectile will have no movement
+        sr = GetComponent<SpriteRenderer>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         InputManagement();
+
+        if(moveDir.x != 0 || moveDir.y != 0)
+        {
+            SpriteDirectionChecker();
+        }
+    }
+
+    void SpriteDirectionChecker()
+    {
+        if(moveDir.x < 0)
+        {
+            sr.flipX = true;
+        }
+        else
+        {
+            sr.flipX = false;
+        }
     }
 
     void FixedUpdate()
@@ -42,29 +55,21 @@ public class PlayerMovement : MonoBehaviour
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
 
-        moveDir = new UnityEngine.Vector2(moveX, moveY).normalized;
+        moveDir = new Vector2(moveX, moveY).normalized;
 
-        if (moveDir.x != 0)
+        if(moveDir.x != 0)
         {
             lastHorizontalVector = moveDir.x;
-            lastMovedVector = new UnityEngine.Vector2(lastHorizontalVector, 0f);  //Last moved X
-        }
 
-        if (moveDir.y != 0)
+        }
+        if(moveDir.y != 0)
         {
             lastVerticalVector = moveDir.y;
-            lastMovedVector = new UnityEngine.Vector2(0f, lastVerticalVector);  //Last moved Y
         }
-
-        if(moveDir.x != 0 && moveDir.y != 0)
-        {
-            lastMovedVector = new UnityEngine.Vector2(lastHorizontalVector, lastVerticalVector);  //While moving
-        }
-
     }
 
     void Move()
     {
-        rb.velocity = new UnityEngine.Vector2 (moveDir.x * characterData.MoveSpeed, moveDir.y * characterData.MoveSpeed);
+        rb.velocity = new Vector2(moveDir.x * moveSpeed, moveDir.y * moveSpeed);
     }
 }

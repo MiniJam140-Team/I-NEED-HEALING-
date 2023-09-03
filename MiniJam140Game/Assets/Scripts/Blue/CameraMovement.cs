@@ -1,4 +1,3 @@
-using System.Numerics;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,9 +6,9 @@ public class CameraMovement : MonoBehaviour
 {
 
     public Transform target;
-    public UnityEngine.Vector3 offset;
-
-    // Update is called once per frame
+    public Vector3 offset;
+    
+    
     void Update()
     {
         transform.position = target.position + offset;

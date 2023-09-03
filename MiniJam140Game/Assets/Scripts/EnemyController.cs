@@ -86,7 +86,7 @@ namespace Assets.Scripts
         // Start is called before the first frame update
         void Start()
         {
-            target = GameObject.Find("Player").transform;
+            target = GameObject.Find("MainPlayer").transform;
         }
         // Update is called once per frame
         void Update()
