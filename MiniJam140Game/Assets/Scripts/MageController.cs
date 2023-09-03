@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Assets.Scripts
@@ -10,16 +11,17 @@ namespace Assets.Scripts
     internal class MageController : MonoBehaviour
     {
         //Damagable damagable;
-        public enum attacks { attack1, attack2 };
-        //public DetectionZone attackZone;
         Animator animator;
-        Rigidbody2D rb;
-        CapsuleCollider2D capsuleCollider;
-        public GameObject ledgeDetector;
-        public Transform target;
+        [SerializeField] 
+        GameObject ledgeDetector;
+        [SerializeField]
+        Transform target;
+        [SerializeField]
+        Transform player;
         private bool isMoving;
         public float speed;
-        public float distToChasePlayer = 8f;
+        public float maxFollowDist;
+        public float minFollowDist;
 
         public bool IsMoving
         {
@@ -72,39 +74,44 @@ namespace Assets.Scripts
         // Start is called before the first frame update
         void Start()
         {
+            player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         }
         // Update is called once per frame
         void Update()
         {
+            if(Vector2.Distance(transform.position, player.transform.position) >= minFollowDist && Vector2.Distance(transform.position, player.transform.position) <= maxFollowDist)
+            {
+                transform.position = Vector2.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
+            }
+            target = GameObject.FindWithTag("Enemy").transform;
             //HasTarget = attackZone.detectedColliders.Count > 0;
             Vector3 scale = transform.localScale;
             //IsChasing = Vector2.Distance(transform.position, target.position) < distToChasePlayer ? true : false;
 
             if (transform.position.x > target.position.x)
             {
-                transform.position += Vector3.left * speed * Time.deltaTime;
+                //transform.position += Vector3.left * speed * Time.deltaTime;
                 scale.x = Mathf.Abs(scale.x) * -1;
             }
             if (transform.position.x < target.position.x)
             {
                 scale.x = Mathf.Abs(scale.x) * 1;
-                transform.position += Vector3.right * speed * Time.deltaTime;
+                //transform.position += Vector3.right * speed * Time.deltaTime;
             }
             if (transform.position.y > target.position.y)
             {
-                transform.position += Vector3.down * speed * Time.deltaTime;
+                //transform.position += Vector3.down * speed * Time.deltaTime;
                 scale.x = Mathf.Abs(scale.x) * -1;
             }
             if (transform.position.y < target.position.y)
             {
                 scale.x = Mathf.Abs(scale.x) * 1;
-                transform.position += Vector3.up * speed * Time.deltaTime;
+                //transform.position += Vector3.up * speed * Time.deltaTime;
             }
             transform.localScale = scale;
         }
         private void FixedUpdate()
         {
-            target = GameObject.FindWithTag("Enemy").transform;
         }
     }
 }
