@@ -9,12 +9,10 @@ namespace Assets.Scripts
     {
 
         Animator animator;
-        Rigidbody2D rb;
-        CapsuleCollider2D capsuleCollider;
+        
         public GameObject ledgeDetector;
         public RuntimeAnimatorController werewolf2Controller;
         public Transform target;
-        private bool isChasing;
         public float speed;
         public float distToChasePlayer = 8f;
         public int typeAttack = 0;
@@ -31,19 +29,6 @@ namespace Assets.Scripts
         // The Audio Source attached to this game object.
         private AudioSource audioSource;
 
-
-        public bool IsChasing
-        {
-            get
-            {
-                return isChasing;
-            }
-            set
-            {
-                isChasing = value;
-                animator.SetBool(AnimationStrings.isChasing, value);
-            }
-        }
         public bool _canMove = true;
         public bool CanMove
         {
@@ -78,10 +63,7 @@ namespace Assets.Scripts
         }
         private void Awake()
         {
-            rb = GetComponent<Rigidbody2D>();
             animator = GetComponent<Animator>();
-            capsuleCollider = GetComponent<CapsuleCollider2D>();
-
         }
         // Start is called before the first frame update
         void Start()
