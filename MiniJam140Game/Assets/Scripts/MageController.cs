@@ -19,9 +19,9 @@ namespace Assets.Scripts
         [SerializeField]
         Transform player;
         private bool isMoving;
-        public float speed;
-        public float maxFollowDist;
-        public float minFollowDist;
+        float speed = 6f;
+        float maxFollowDist = 3f;
+        float minFollowDist = 1.5f;
 
         public bool IsMoving
         {
@@ -84,9 +84,7 @@ namespace Assets.Scripts
                 transform.position = Vector2.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
             }
             target = GameObject.FindWithTag("Enemy").transform;
-            //HasTarget = attackZone.detectedColliders.Count > 0;
             Vector3 scale = transform.localScale;
-            //IsChasing = Vector2.Distance(transform.position, target.position) < distToChasePlayer ? true : false;
 
             if (transform.position.x > target.position.x)
             {

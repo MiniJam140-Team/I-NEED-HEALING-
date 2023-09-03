@@ -14,8 +14,8 @@ TagManager:
   - 
   - Water
   - UI
-  - KeyMaster
-  - 
+  - NPCs
+  - Player
   - 
   - 
   - 
@@ -49,6 +49,9 @@ TagManager:
     locked: 0
   - name: Foreground
     uniqueID: 3391000099
+    locked: 0
+  - name: Player
+    uniqueID: 1562506751
     locked: 0
   - name: Allies
     uniqueID: 546081269

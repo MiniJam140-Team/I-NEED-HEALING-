@@ -9,15 +9,17 @@ namespace Assets.Scripts
 {
     internal class BruiserController : MonoBehaviour
     {
-        //Damagable damagable;
-        public enum attacks { attack1, attack2 };
-        //public DetectionZone attackZone;
         Animator animator;
         Rigidbody2D rb;
-        SpriteRenderer rend;
-        public Transform target;
+        [SerializeField]
+        Transform target;
+        [SerializeField]
+        Transform player;
         private bool isMoving;
-        public float speed;
+        float speed = 6f;
+        float maxFollowDist = 3f;
+        float minFollowDist = 1.5f;
+        float minAttackTargDist = 5f;
 
         public bool IsMoving
         {
@@ -58,15 +60,18 @@ namespace Assets.Scripts
         // Start is called before the first frame update
         void Start()
         {
-            rend = GetComponent<SpriteRenderer>();
+            player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         }
         // Update is called once per frame
         void Update()
         {
-            //HasTarget = attackZone.detectedColliders.Count > 0;
+            if (Vector2.Distance(transform.position, player.transform.position) >= minFollowDist && Vector2.Distance(transform.position, player.transform.position) <= maxFollowDist)
+            {
+                transform.position = Vector2.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
+            }
+            SetTarget();
             Vector3 scale = transform.localScale;
-            //IsChasing = Vector2.Distance(transform.position, target.position) < distToChasePlayer ? true : false;
-            if (target)
+            if (Vector2.Distance(transform.position, target.transform.position) <= minAttackTargDist)
             {
                 if (transform.position.x > target.position.x)
                 {
@@ -89,11 +94,10 @@ namespace Assets.Scripts
                     transform.position += Vector3.up * speed * Time.deltaTime;
                 }
                 transform.localScale = scale;
-            }            
+            }
         }
         private void FixedUpdate()
         {
-            SetTarget();
         }
         void SetTarget()
         {

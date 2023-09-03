@@ -14,13 +14,16 @@ namespace Assets.Scripts
         //public DetectionZone attackZone;
         Animator animator;
         Rigidbody2D rb;
-        CapsuleCollider2D capsuleCollider;
-        public GameObject ledgeDetector;
-        public Transform target;
+        [SerializeField]
+        Transform player;
+        [SerializeField]
+        Transform target;
         private bool isMoving;
-        public float speed;
-        public float distToChasePlayer = 8f;
-        public int typeAttack = 0;
+        float speed = 6f;
+        float maxFollowDist = 3f;
+        float minFollowDist = 1.5f;
+        float minGotoDoorDist = 5f;
+        public bool barrierFound;
 
         public bool IsMoving
         {
@@ -34,62 +37,29 @@ namespace Assets.Scripts
                 animator.SetBool(AnimationStrings.isMoving, value);
             }
         }
-        public bool _canMove = true;
-        public bool CanMove
-        {
-            get
-            {
-                return animator.GetBool(AnimationStrings.canMove);
-            }
-        }
-        public bool _hasTarget = false;
-        public bool HasTarget
-        {
-            get
-            {
-                return _hasTarget;
-            }
-            private set
-            {
-                _hasTarget = value;
-                animator.SetBool(AnimationStrings.hasTarget, value);
-            }
-        }
-        public float AttackCooldown
-        {
-            get
-            {
-                return animator.GetFloat(AnimationStrings.attackCooldown);
-            }
-            private set
-            {
-                animator.SetFloat(AnimationStrings.attackCooldown, Mathf.Max(value, 0));
-            }
-        }
         private void Awake()
         {
             rb = GetComponent<Rigidbody2D>();
             //animator = GetComponent<Animator>();
-            capsuleCollider = GetComponent<CapsuleCollider2D>();
 
         }
         // Start is called before the first frame update
         void Start()
         {
             target = GameObject.Find("Door").transform;
+            player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         }
         // Update is called once per frame
         void Update()
         {
-            ////if (damagable.Health <= 50)
-            //{
-            //}
-
-            //HasTarget = attackZone.detectedColliders.Count > 0;
+            barrierFound = GameObject.FindGameObjectWithTag("Barrier");
+            if (Vector2.Distance(transform.position, player.transform.position) >= minFollowDist && Vector2.Distance(transform.position, player.transform.position) <= maxFollowDist)
+            {
+                transform.position = Vector2.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
+            }
             Vector3 scale = transform.localScale;
-            //IsChasing = Vector2.Distance(transform.position, target.position) < distToChasePlayer ? true : false;
 
-            if (!(GameObject.FindGameObjectWithTag("Barrier")))
+            if ((barrierFound == false) && Vector2.Distance(transform.position, target.transform.position) <= minGotoDoorDist)
             {
 
                 if (transform.position.x > target.position.x)
