@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MusicPlayer : MonoBehaviour
 {
@@ -10,11 +11,5 @@ public class MusicPlayer : MonoBehaviour
     {
         introSource.Play();
         loopSource.PlayScheduled(AudioSettings.dspTime + introSource.clip.length);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

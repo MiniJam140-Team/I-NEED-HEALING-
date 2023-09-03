@@ -19,7 +19,6 @@ public class LoseGame : MonoBehaviour
             if (Timer.timeLeft <=0 ) 
             {
                 LoseScreen.SetActive(true);
-                Time.timeScale = 0;
             }
         }
     }
