@@ -18,6 +18,10 @@ namespace Assets.Scripts
         Transform player;
         [SerializeField]
         Transform target;
+        [SerializeField]
+        TimerScript timer;
+        [SerializeField]
+        GameObject loseScreen;
         private bool isMoving;
         float speed = 6f;
         float maxFollowDist = 3f;
@@ -41,7 +45,7 @@ namespace Assets.Scripts
         {
             rb = GetComponent<Rigidbody2D>();
             //animator = GetComponent<Animator>();
-
+            loseScreen = GameObject.Find("LoseScreen");
         }
         // Start is called before the first frame update
         void Start()
@@ -87,6 +91,13 @@ namespace Assets.Scripts
         }
         private void FixedUpdate()
         {
+        }
+        private void OnDestroy()
+        {
+            //stop timer
+            timer.timerOn = false;
+            //activate losescreen
+            loseScreen.SetActive(true);
         }
     }
 }

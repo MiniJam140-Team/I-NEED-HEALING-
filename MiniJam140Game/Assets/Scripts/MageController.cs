@@ -108,8 +108,5 @@ namespace Assets.Scripts
             }
             transform.localScale = scale;
         }
-        private void FixedUpdate()
-        {
-        }
     }
 }

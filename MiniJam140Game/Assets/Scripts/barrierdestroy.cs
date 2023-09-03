@@ -16,6 +16,7 @@ namespace Assets.Scripts
         public float attackSpeed = 10f;
         [SerializeField]
         public float timeSinceAttack = 0;
+        public bool HasTarget = false;
         // Start is called before the first frame update
         void Start()
         {
@@ -36,19 +37,6 @@ namespace Assets.Scripts
                 }
             }
         }
-        public bool HasTarget = false;
-        //public bool HasTarget
-        //{
-        //    get
-        //    {
-        //        return _hasTarget;
-        //    }
-        //    private set
-        //    {
-        //        _hasTarget = value;
-        //        animator.SetBool(AnimationStrings.hasTarget, value);
-        //    }
-        //}
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.gameObject.CompareTag("Barrier"))
@@ -70,7 +58,6 @@ namespace Assets.Scripts
                 // ... don't return an enemy (there isn't any!) and exit the function.
                 return null;
             }
-
             // Sort the enemies by distance to this tower.
             detectedBarrierControllers.Sort((enemy1, enemy2) =>
             {
@@ -78,7 +65,6 @@ namespace Assets.Scripts
                 float enemy2Distance = Vector2.Distance(enemy2.transform.position, transform.position);
                 return enemy1Distance.CompareTo(enemy2Distance);
             });
-
             // Return the first enemy in the list (which is the closest since we sorted it).
             return detectedBarrierControllers[0].gameObject;
         }

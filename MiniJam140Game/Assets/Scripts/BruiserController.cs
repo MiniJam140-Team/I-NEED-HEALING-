@@ -103,8 +103,28 @@ namespace Assets.Scripts
         {
             if (GameObject.FindWithTag("Barrier").transform != null)
             {
-                target = GameObject.FindWithTag("Barrier").transform;
+
+                target = GetClosestBarrier().transform;
+            }            
+        }
+        public GameObject GetClosestBarrier()
+        {
+            List<BarrierController> barriers = new List<BarrierController>(FindObjectsOfType<BarrierController>());
+            if (barriers.Count == 0)
+            {
+                // ... don't return an enemy (there isn't any!) and exit the function.
+                return null;
+                
             }
+            // Sort the enemies by distance to this tower.
+            barriers.Sort((enemy1, enemy2) =>
+            {
+                float enemy1Distance = Vector2.Distance(enemy1.transform.position, transform.position);
+                float enemy2Distance = Vector2.Distance(enemy2.transform.position, transform.position);
+                return enemy1Distance.CompareTo(enemy2Distance);
+            });
+            // Return the first enemy in the list (which is the closest since we sorted it).
+            return barriers[0].gameObject;
         }
     }
 }
