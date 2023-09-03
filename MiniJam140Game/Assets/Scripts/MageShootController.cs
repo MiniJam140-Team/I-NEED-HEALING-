@@ -55,12 +55,6 @@ namespace Assets.Scripts
                 // ... then exit this function (don't do anything else).
                 return;
             }
-
-            //// Rotate towards the closest enemy.
-            //float angle = Vector3.SignedAngle(transform.up, transform.position - closestEnemy.transform.position,
-            //    transform.forward) + 180;
-            //transform.Rotate(0, 0, angle);
-
             // Add how much time has passed since last frame.
             timeSinceLastShot += Time.deltaTime;
 

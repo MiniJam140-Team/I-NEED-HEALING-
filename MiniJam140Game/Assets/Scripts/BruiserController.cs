@@ -9,8 +9,6 @@ namespace Assets.Scripts
 {
     internal class BruiserController : MonoBehaviour
     {
-        Animator animator;
-        Rigidbody2D rb;
         [SerializeField]
         Transform target;
         [SerializeField]
@@ -20,42 +18,8 @@ namespace Assets.Scripts
         float maxFollowDist = 3f;
         float minFollowDist = 1.5f;
         float minAttackTargDist = 5f;
-
-        public bool IsMoving
-        {
-            get
-            {
-                return isMoving;
-            }
-            set
-            {
-                isMoving = value;
-                animator.SetBool(AnimationStrings.isMoving, value);
-            }
-        }
-        public bool _canMove = true;
-        public bool CanMove
-        {
-            get
-            {
-                return animator.GetBool(AnimationStrings.canMove);
-            }
-        }
-        public float AttackCooldown
-        {
-            get
-            {
-                return animator.GetFloat(AnimationStrings.attackCooldown);
-            }
-            private set
-            {
-                animator.SetFloat(AnimationStrings.attackCooldown, Mathf.Max(value, 0));
-            }
-        }
         private void Awake()
         {
-            rb = GetComponent<Rigidbody2D>();
-
         }
         // Start is called before the first frame update
         void Start()

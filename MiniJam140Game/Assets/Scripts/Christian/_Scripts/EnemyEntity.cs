@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using UnityEngine;
-
 namespace Assets.Scripts
 {
     public class EnemyEntity : MonoBehaviour

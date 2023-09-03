@@ -9,9 +9,6 @@ namespace Assets.Scripts
     {
 
         Animator animator;
-        
-        public GameObject ledgeDetector;
-        public RuntimeAnimatorController werewolf2Controller;
         public Transform target;
         public float speed;
         public float distToChasePlayer = 8f;

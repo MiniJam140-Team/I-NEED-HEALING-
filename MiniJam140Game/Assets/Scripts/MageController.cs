@@ -11,65 +11,19 @@ namespace Assets.Scripts
     internal class MageController : MonoBehaviour
     {
         //Damagable damagable;
-        Animator animator;
         [SerializeField] 
         GameObject ledgeDetector;
         [SerializeField]
         Transform target;
         [SerializeField]
         Transform player;
-        private bool isMoving;
         float speed = 6f;
         float maxFollowDist = 3f;
         float minFollowDist = 1.5f;
+        float minAttackTargDist = 6f;
 
-        public bool IsMoving
-        {
-            get
-            {
-                return isMoving;
-            }
-            set
-            {
-                isMoving = value;
-                animator.SetBool(AnimationStrings.isMoving, value);
-            }
-        }
-        public bool _canMove = true;
-        public bool CanMove
-        {
-            get
-            {
-                return animator.GetBool(AnimationStrings.canMove);
-            }
-        }
-        public bool _hasTarget = false;
-        public bool HasTarget
-        {
-            get
-            {
-                return _hasTarget;
-            }
-            private set
-            {
-                _hasTarget = value;
-                animator.SetBool(AnimationStrings.hasTarget, value);
-            }
-        }
-        public float AttackCooldown
-        {
-            get
-            {
-                return animator.GetFloat(AnimationStrings.attackCooldown);
-            }
-            private set
-            {
-                animator.SetFloat(AnimationStrings.attackCooldown, Mathf.Max(value, 0));
-            }
-        }
         private void Awake()
         {
-            animator = GetComponent<Animator>();
         }
         // Start is called before the first frame update
         void Start()
@@ -83,30 +37,54 @@ namespace Assets.Scripts
             {
                 transform.position = Vector2.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
             }
-            target = GameObject.FindWithTag("Enemy").transform;
+            SetTarget();
             Vector3 scale = transform.localScale;
-
-            if (transform.position.x > target.position.x)
+            if (Vector2.Distance(transform.position, target.transform.position) <= minAttackTargDist)
             {
-                //transform.position += Vector3.left * speed * Time.deltaTime;
-                scale.x = Mathf.Abs(scale.x) * -1;
-            }
-            if (transform.position.x < target.position.x)
-            {
-                scale.x = Mathf.Abs(scale.x) * 1;
-                //transform.position += Vector3.right * speed * Time.deltaTime;
-            }
-            if (transform.position.y > target.position.y)
-            {
-                //transform.position += Vector3.down * speed * Time.deltaTime;
-                scale.x = Mathf.Abs(scale.x) * -1;
-            }
-            if (transform.position.y < target.position.y)
-            {
-                scale.x = Mathf.Abs(scale.x) * 1;
-                //transform.position += Vector3.up * speed * Time.deltaTime;
+                if (transform.position.x > target.position.x)
+                {
+                    scale.x = Mathf.Abs(scale.x) * -1;
+                }
+                if (transform.position.x < target.position.x)
+                {
+                    scale.x = Mathf.Abs(scale.x) * 1;
+                }
+                if (transform.position.y > target.position.y)
+                {
+                    scale.x = Mathf.Abs(scale.x) * -1;
+                }
+                if (transform.position.y < target.position.y)
+                {
+                    scale.x = Mathf.Abs(scale.x) * 1;
+                }
             }
             transform.localScale = scale;
+        }
+        void SetTarget()
+        {
+            if (GameObject.FindWithTag("Enemy").transform != null)
+            {
+
+                target = GetClosestBarrier().transform;
+            }
+        }
+        public GameObject GetClosestBarrier()
+        {
+            List<EnemyController> enemies = new List<EnemyController>(FindObjectsOfType<EnemyController>());
+            if (enemies.Count == 0)
+            {
+                // ... don't return an enemy (there isn't any!) and exit the function.
+                return null;
+            }
+            // Sort the enemies by distance to this tower.
+            enemies.Sort((enemy1, enemy2) =>
+            {
+                float enemy1Distance = Vector2.Distance(enemy1.transform.position, transform.position);
+                float enemy2Distance = Vector2.Distance(enemy2.transform.position, transform.position);
+                return enemy1Distance.CompareTo(enemy2Distance);
+            });
+            // Return the first enemy in the list (which is the closest since we sorted it).
+            return enemies[0].gameObject;
         }
     }
 }
