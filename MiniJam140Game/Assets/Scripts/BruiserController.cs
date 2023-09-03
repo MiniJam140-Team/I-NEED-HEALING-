@@ -14,7 +14,7 @@ namespace Assets.Scripts
         //public DetectionZone attackZone;
         Animator animator;
         Rigidbody2D rb;
-        public GameObject ledgeDetector;
+        SpriteRenderer rend;
         public Transform target;
         private bool isMoving;
         public float speed;
@@ -39,19 +39,6 @@ namespace Assets.Scripts
                 return animator.GetBool(AnimationStrings.canMove);
             }
         }
-        public bool _hasTarget = false;
-        public bool HasTarget
-        {
-            get
-            {
-                return _hasTarget;
-            }
-            private set
-            {
-                _hasTarget = value;
-                animator.SetBool(AnimationStrings.hasTarget, value);
-            }
-        }
         public float AttackCooldown
         {
             get
@@ -71,6 +58,7 @@ namespace Assets.Scripts
         // Start is called before the first frame update
         void Start()
         {
+            rend = GetComponent<SpriteRenderer>();
         }
         // Update is called once per frame
         void Update()

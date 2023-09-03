@@ -6,11 +6,27 @@ using UnityEngine.SceneManagement;
 public class LoseGame : MonoBehaviour
 {
     public GameObject LoseScreen;
+    public TimerScript Timer;
+
+    private void Awake()
+    {
+        Timer = FindAnyObjectByType<TimerScript>();
+    }
+    private void Update()
+    {
+        if(Timer != null)
+        {
+            if (Timer.timeLeft <=0 ) 
+            {
+                LoseScreen.SetActive(true);
+                Time.timeScale = 0;
+            }
+        }
+    }
     public void Retry()
     {
         Debug.Log("Restarting level");
         LoseScreen.SetActive(false);
-        Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         Debug.Log($"Time scale currently: {Time.timeScale}");
     }

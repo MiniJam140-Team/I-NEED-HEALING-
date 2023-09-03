@@ -6,10 +6,11 @@ public class WinGameController : MonoBehaviour
 {
     public GameObject WinScreen;
     public DoorController DoorController;
+    public TimerScript Timer;
     // Start is called before the first frame update
     void Start()
     {
-        
+        Timer = FindAnyObjectByType<TimerScript>();
     }
 
     // Update is called once per frame
@@ -29,6 +30,7 @@ public class WinGameController : MonoBehaviour
     }
     public void GetWin()
     {
+        Timer.timerOn = false;
         WinScreen.SetActive(true);
         Time.timeScale = 0f;
     }

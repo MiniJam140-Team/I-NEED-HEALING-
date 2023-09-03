@@ -4,24 +4,29 @@ using UnityEngine;
 
 public class BarrierController : MonoBehaviour
 {
-    public int barrierHealth;
+    public float barrierHealth = 100;
+    SpriteRenderer barrierRenderer;
+    GameObject barrier;
     //each time brusier hits barrier decrement by damage amount
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        barrierRenderer = GetComponent<SpriteRenderer>();
+        barrier = GetComponent<GameObject>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
     }
-    void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
+        gameObject.GetComponentInParent<SpriteRenderer>().color = new Color(1f,0f,0f,1f);
         barrierHealth -= damage;
-        if(barrierHealth <= 0 )
+        //set sprites color to red and back to normal
+
+        if (barrierHealth <= 0 )
         {
             Destroy(gameObject);
         }
