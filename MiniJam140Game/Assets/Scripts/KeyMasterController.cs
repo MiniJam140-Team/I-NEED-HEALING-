@@ -45,7 +45,7 @@ namespace Assets.Scripts
         {
             rb = GetComponent<Rigidbody2D>();
             //animator = GetComponent<Animator>();
-            loseScreen = GameObject.Find("LoseScreen");
+            timer = FindAnyObjectByType<TimerScript>();
         }
         // Start is called before the first frame update
         void Start()
@@ -63,7 +63,7 @@ namespace Assets.Scripts
             }
             Vector3 scale = transform.localScale;
 
-            if ((barrierFound == false) && Vector2.Distance(transform.position, target.transform.position) <= minGotoDoorDist)
+            if (Vector2.Distance(transform.position, target.transform.position) <= minGotoDoorDist)
             {
 
                 if (transform.position.x > target.position.x)

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4087250075183774725}
   - component: {fileID: 8682273869284117136}
   - component: {fileID: 8528335514919962934}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -36,7 +36,7 @@ Transform:
   m_Children:
   - {fileID: 7464288665430958467}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &798682753410665049
 SpriteRenderer:
@@ -164,8 +164,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be737a94a40e64f4e990d143505928cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ledgeDetector: {fileID: 0}
-  werewolf2Controller: {fileID: 0}
   target: {fileID: 0}
   speed: 3
   distToChasePlayer: 8

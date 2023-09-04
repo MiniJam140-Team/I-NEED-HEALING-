@@ -14,10 +14,10 @@ TagManager:
   - 
   - Water
   - UI
-  - NPCs
+  - Allies
   - Player
-  - 
-  - 
+  - Projectiles
+  - Enemies
   - 
   - 
   - 
@@ -41,6 +41,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Underground
+    uniqueID: 829529415
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

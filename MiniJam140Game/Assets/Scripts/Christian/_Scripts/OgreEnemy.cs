@@ -43,6 +43,7 @@ namespace Assets.Scripts
                         isAttacking = false;
                         animator.SetBool("isAttacking", false); // Set the attack animation boolean to false
                         isChasing = true; // Resume chasing
+                        animator.SetBool("isChasing", true);
                     }
                 }
                 else if (isChasing)
@@ -51,6 +52,7 @@ namespace Assets.Scripts
                     if (distanceToTarget <= meleeAttackRange)
                     {
                         isChasing = false;
+                        animator.SetBool("isChasing", false);
                         StartMeleeAttack();
                     }
                     else if (distanceToTarget < distToChasePlayer)
@@ -113,6 +115,7 @@ namespace Assets.Scripts
             isAttacking = false;
             animator.SetBool("isAttacking", false); // Set the attack animation boolean to false
             isChasing = true; // Resume chasing
+            animator.SetBool("isChasing", true);
         }
 
         private void StopAttackCoroutine()

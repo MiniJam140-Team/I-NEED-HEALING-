@@ -26,6 +26,7 @@ public class LoseGame : MonoBehaviour
     {
         Debug.Log("Restarting level");
         LoseScreen.SetActive(false);
+        Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         Debug.Log($"Time scale currently: {Time.timeScale}");
     }

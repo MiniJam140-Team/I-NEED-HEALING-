@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 9053993634653134397}
   - component: {fileID: 1473306401887761908}
   - component: {fileID: 7456491017860388044}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Mage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -165,8 +165,6 @@ MonoBehaviour:
   ledgeDetector: {fileID: 0}
   target: {fileID: 0}
   player: {fileID: 0}
-  _canMove: 1
-  _hasTarget: 0
 --- !u!114 &7456491017860388044
 MonoBehaviour:
   m_ObjectHideFlags: 0

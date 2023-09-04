@@ -331,6 +331,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LoseScreen: {fileID: 512669787591248043}
+  Timer: {fileID: 0}
 --- !u!1 &1052056534583563199
 GameObject:
   m_ObjectHideFlags: 0
@@ -723,8 +724,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: loseScreen, Assembly-CSharp
+      - m_Target: {fileID: 6477799389373501533}
+        m_TargetAssemblyTypeName: LoseGame, Assembly-CSharp
         m_MethodName: QuitGame
         m_Mode: 1
         m_Arguments:
@@ -835,7 +836,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0, g: 0, b: 0, a: 1}
+    m_HighlightedColor: {r: 0.34901962, g: 0, b: 0.29803923, a: 1}
     m_PressedColor: {r: 1, g: 1, b: 1, a: 1}
     m_SelectedColor: {r: 0, g: 0, b: 0, a: 1}
     m_DisabledColor: {r: 0, g: 0, b: 0, a: 0.5176471}
@@ -857,8 +858,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: loseScreen, Assembly-CSharp
+      - m_Target: {fileID: 6477799389373501533}
+        m_TargetAssemblyTypeName: LoseGame, Assembly-CSharp
         m_MethodName: Retry
         m_Mode: 1
         m_Arguments:
