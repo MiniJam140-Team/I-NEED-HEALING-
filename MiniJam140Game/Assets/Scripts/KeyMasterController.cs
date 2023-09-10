@@ -51,7 +51,7 @@ namespace Assets.Scripts
         void Start()
         {
             target = GameObject.Find("Door").transform;
-            player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+            player = GameObject.FindGameObjectWithTag("KeymasterFollowObject").GetComponent<Transform>();
         }
         // Update is called once per frame
         void Update()

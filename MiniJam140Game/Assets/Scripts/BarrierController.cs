@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BarrierController : MonoBehaviour
 {
-    public float barrierHealth = 100;
+    //public float barrierHealth = 100;
     SpriteRenderer barrierRenderer;
     GameObject barrier;
     //each time brusier hits barrier decrement by damage amount
@@ -20,15 +20,10 @@ public class BarrierController : MonoBehaviour
     void Update()
     {
     }
-    public void TakeDamage(float damage)
+    public void TakeDamage()
     {
-        gameObject.GetComponentInParent<SpriteRenderer>().color = new Color(1f,0f,0f,1f);
-        barrierHealth -= damage;
+        //barrierHealth -= damage;
         //set sprites color to red and back to normal
-
-        if (barrierHealth <= 0 )
-        {
-            Destroy(gameObject);
-        }
+        Destroy(gameObject);
     }
 }

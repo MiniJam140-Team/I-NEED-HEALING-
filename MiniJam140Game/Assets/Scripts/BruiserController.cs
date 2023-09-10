@@ -13,6 +13,8 @@ namespace Assets.Scripts
         Transform target;
         [SerializeField]
         Transform player;
+        Animator animator;
+        Rigidbody2D rb;
         private bool isMoving;
         float speed = 6f;
         float maxFollowDist = 3f;
@@ -20,23 +22,25 @@ namespace Assets.Scripts
         float minAttackTargDist = 5f;
         private void Awake()
         {
+            animator = GetComponent<Animator>();
+            rb = GetComponent<Rigidbody2D>();
         }
         // Start is called before the first frame update
         void Start()
         {
-            player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+            player = GameObject.FindGameObjectWithTag("BruiserFollowObject").GetComponent<Transform>();
         }
         // Update is called once per frame
         void Update()
         {
+            SetTarget();
+            Vector3 scale = transform.localScale;
             if (Vector2.Distance(transform.position, player.transform.position) >= minFollowDist && Vector2.Distance(transform.position, player.transform.position) <= maxFollowDist)
             {
                 transform.position = Vector2.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
-            }
-            SetTarget();
-            Vector3 scale = transform.localScale;
+            }            
             if (Vector2.Distance(transform.position, target.transform.position) <= minAttackTargDist)
-            {
+            {                
                 if (transform.position.x > target.position.x)
                 {
                     transform.position += Vector3.left * speed * Time.deltaTime;
@@ -62,6 +66,8 @@ namespace Assets.Scripts
         }
         private void FixedUpdate()
         {
+            PlayerInRange();
+            BarrierInRange();
         }
         void SetTarget()
         {
@@ -89,6 +95,33 @@ namespace Assets.Scripts
             });
             // Return the first enemy in the list (which is the closest since we sorted it).
             return barriers[0].gameObject;
+        }
+        public bool PlayerInRange()
+        {
+            if (Vector2.Distance(transform.position, player.transform.position) >= minFollowDist && Vector2.Distance(transform.position, player.transform.position) <= maxFollowDist)
+            {
+                animator.SetBool(AnimationStrings.playerInRange, true);
+                return true;
+            }
+            else
+            {
+
+                animator.SetBool(AnimationStrings.playerInRange, false);
+                return false;
+            }
+        }
+        public bool BarrierInRange()
+        {
+            if (Vector2.Distance(transform.position, target.transform.position) <= minAttackTargDist)
+            {
+                animator.SetBool(AnimationStrings.barrierInRange, true);
+                return true;
+            }
+            else
+            {
+                animator.SetBool(AnimationStrings.barrierInRange, false);
+                return false;
+            }
         }
     }
 }

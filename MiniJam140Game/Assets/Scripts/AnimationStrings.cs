@@ -27,5 +27,8 @@ namespace Assets.Scripts
         internal static string closeToPlayer = "closeToPlayer";
         internal static string attack = "attack";
         internal static string isPlayerGrounded = "isPlayerGrounded";
+        internal static string isAttacking = "isAttacking";
+        internal static string playerInRange = "playerInRange";
+        internal static string barrierInRange = "barrierInRange";
     }
 }

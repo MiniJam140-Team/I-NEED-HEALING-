@@ -7,6 +7,9 @@ TagManager:
   - Barrier
   - Enemy
   - KeyMaster
+  - BruiserFollowObject
+  - MageFollowObject
+  - KeymasterFollowObject
   layers:
   - Default
   - TransparentFX

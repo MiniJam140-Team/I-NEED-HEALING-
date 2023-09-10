@@ -9,33 +9,40 @@ namespace Assets.Scripts
     public class barrierdestroy : MonoBehaviour
     {
         [SerializeField]
-        public List<BarrierController> detectedBarrierControllers = new List<BarrierController>();
-        Animator animator;
-        BarrierController barrierController;
+        List<BarrierController> detectedBarrierControllers = new List<BarrierController>();
         [SerializeField]
-        public float attackSpeed = 10f;
+        float attackSpeed = 10f;
         [SerializeField]
-        public float timeSinceAttack = 0;
-        public bool HasTarget = false;
+        float timeSinceAttack = 0;
+        [SerializeField]
+        bool HasTarget = false;
+        Animator parentAnimator;
+
+        private void Awake()
+        {
+            parentAnimator = GetComponentInParent<Animator>();        
+        }
         // Start is called before the first frame update
         void Start()
         {
-            animator = GetComponent<Animator>();
         }
         private void Update()
         {
             HasTarget = detectedBarrierControllers.Count > 0;
             while (HasTarget)
             {
+                parentAnimator.SetBool(AnimationStrings.isAttacking,true);
                 timeSinceAttack += Time.deltaTime;
+
                 if (timeSinceAttack >= attackSpeed)
                 {
                     //attack animation
                     BarrierController controller = detectedBarrierControllers[0];
-                    controller.TakeDamage(.5f);
+                    controller.TakeDamage();
                     timeSinceAttack = 0;
                 }
             }
+            parentAnimator.SetBool(AnimationStrings.isAttacking,false);
         }
         private void OnTriggerEnter2D(Collider2D collision)
         {
